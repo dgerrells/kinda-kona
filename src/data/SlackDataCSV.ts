@@ -41,3 +41,11 @@ export const getSlackData = async () => {
   }
   return cachedData;
 };
+
+export const getUserData = (data: Array<TouchPoint>, slackUserId: string) => {
+  let engagementCount = 0;
+  // data.forEach(tp => {
+  //     engagementCount++;
+  //   }
+  // });
+};

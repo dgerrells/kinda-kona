@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import { OrgSummaryData } from "../services/TeamService";
+import { OrgSummaryData, TeamSummaryData } from "../services/OrgService";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import SentimentNeutralIcon from "@mui/icons-material/SentimentNeutral";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import { CenterStack } from "./Stacks";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { WordCloudChart } from "chartjs-chart-wordcloud";
 import {
   Chart,
@@ -30,7 +30,11 @@ Chart.register(
   WordElement
 );
 
-export const OrgSummarySentiment = ({ data }: { data: OrgSummaryData }) => {
+export const OrgSummarySentiment = ({
+  data,
+}: {
+  data: OrgSummaryData | TeamSummaryData;
+}) => {
   const ref = useRef<any>(null);
   const totalSentimentTouchPoints =
     data.selectionCounts.green +
@@ -39,6 +43,7 @@ export const OrgSummarySentiment = ({ data }: { data: OrgSummaryData }) => {
   const greenPercent = data.selectionCounts.green / totalSentimentTouchPoints;
   const yellowPercent = data.selectionCounts.yellow / totalSentimentTouchPoints;
   const redPercent = data.selectionCounts.red / totalSentimentTouchPoints;
+  const wordCloudScale = data.teamId ? 1.2 : 0.8;
 
   useEffect(() => {
     const ctx = "sentimentCloud";
@@ -51,7 +56,8 @@ export const OrgSummarySentiment = ({ data }: { data: OrgSummaryData }) => {
           {
             label: "Hi",
             data: Object.keys(data.emotionCounts).map(
-              (key) => Math.min(100, 10 + data.emotionCounts[key]) * 0.8
+              (key) =>
+                Math.min(100, 10 + data.emotionCounts[key]) * wordCloudScale
             ),
           },
         ],

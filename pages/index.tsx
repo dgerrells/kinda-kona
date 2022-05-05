@@ -5,12 +5,10 @@ import {
   getSlackOrgData,
   getSlackOrgIds,
   OrgSummaryData,
-} from "../src/services/TeamService";
+} from "../src/services/OrgService";
 import { SlackOrgSummaryCard } from "../src/components/OrgSummaryCard";
 
 const Home: NextPage<{ data: Array<OrgSummaryData> }> = ({ data }) => {
-  console.log(data);
-
   return (
     <>
       <Typography variant="h5" fontWeight="bold">

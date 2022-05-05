@@ -6,14 +6,36 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { OrgSummaryData } from "../services/TeamService";
+import Link from "next/link";
+import { useMemo } from "react";
+import { OrgSummaryData } from "../services/OrgService";
 import { OrgSummarySentiment } from "./OrgSummarySentiment";
 
 const OrgSummaryEngagement = ({ data }: { data: OrgSummaryData }) => {
+  const sortedEngagement = useMemo(
+    () =>
+      Object.keys(data.slackUserEngagement)
+        .sort(
+          (a, b) => data.slackUserEngagement[a] - data.slackUserEngagement[b]
+        )
+        .map((key) => ({ id: key, value: data.slackUserEngagement[key] })),
+    [data]
+  );
+
   return (
     <>
       <Typography color="text.secondary" fontWeight="bold" mt={2} mb={1}>
         Engagement
+      </Typography>
+      <Typography>
+        <strong>{sortedEngagement[0].id}</strong> is the least engaged person
+        with only <strong>{sortedEngagement[0].value}</strong> interactions.
+      </Typography>
+      <Typography>
+        <strong>{sortedEngagement[sortedEngagement.length - 1].id}</strong> is
+        the most engaged person with{" "}
+        <strong>{sortedEngagement[sortedEngagement.length - 1].value}</strong>{" "}
+        interactions.
       </Typography>
     </>
   );
@@ -35,8 +57,9 @@ export const SlackOrgSummaryCard = ({ data }: { data: OrgSummaryData }) => {
         <OrgSummaryEngagement data={data} />
       </CardContent>
       <CardActions>
-        <Button size="small">View Teams</Button>
-        <Button size="small">View People</Button>
+        <Link href={`/org/${data.orgId}`}>
+          <Button size="small">View Teams</Button>
+        </Link>
       </CardActions>
     </Card>
   );

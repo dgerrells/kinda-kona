@@ -2,12 +2,16 @@ import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import dogo from "../../styles/dogo.png";
 import Image from "next/image";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import { useRouter } from "next/router";
 
 export const Navbar = ({ toggleTheme }: { toggleTheme: () => void }) => {
+  const router = useRouter();
+
   return (
-    <AppBar position="static" enableColorOnDark>
+    <AppBar position="sticky" enableColorOnDark>
       <Toolbar>
         <IconButton
+          onClick={() => router.push("/")}
           size="large"
           edge="start"
           color="inherit"
