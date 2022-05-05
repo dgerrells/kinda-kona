@@ -43,7 +43,7 @@ export const OrgSummarySentiment = ({
   const greenPercent = data.selectionCounts.green / totalSentimentTouchPoints;
   const yellowPercent = data.selectionCounts.yellow / totalSentimentTouchPoints;
   const redPercent = data.selectionCounts.red / totalSentimentTouchPoints;
-  const wordCloudScale = data.teamId ? 1.2 : 0.8;
+  const wordCloudScale = (data as any).teamId ? 1.2 : 0.8;
 
   useEffect(() => {
     const ctx = "sentimentCloud";
