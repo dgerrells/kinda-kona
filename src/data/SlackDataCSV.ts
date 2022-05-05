@@ -38,7 +38,6 @@ export const getSlackData = async () => {
           }))
         : [],
     }));
-    console.log("result", cachedData);
   }
   return cachedData;
 };

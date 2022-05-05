@@ -9,6 +9,21 @@ export const getSlackOrgIds = (data: Array<TouchPoint>) => {
   return [...ids];
 };
 
+export type OrgSummaryData = {
+  orgId: string;
+  slackTeamIds: string[];
+  slackUserIds: string[];
+  emotionCounts: {
+    [k: string]: number;
+  };
+  selectionCounts: {
+    red: number;
+    yellow: number;
+    green: number;
+  };
+  engagementCount: number;
+};
+
 export const getSlackOrgData = (data: Array<TouchPoint>, orgId: string) => {
   const orgDataItems = data.filter(
     (tp) => tp.SlackOrgId === orgId && tp.Selection
@@ -37,6 +52,7 @@ export const getSlackOrgData = (data: Array<TouchPoint>, orgId: string) => {
   });
 
   return {
+    orgId,
     slackTeamIds: [...slackTeamIds],
     slackUserIds: [...slackUserIds],
     emotionCounts: Object.fromEntries(emotionCounts),
